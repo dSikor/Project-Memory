@@ -1,0 +1,13 @@
+.button {
+
+    border: 1px solid rgb(63, 68, 63);
+    border-radius: 5px;
+    /* background-color: #192b8f; */
+    padding: 10px;
+    color: rgb(238, 230, 230);
+  }
+  
+/* 
+  .button.green {
+    background-color: green; 
+  } */
