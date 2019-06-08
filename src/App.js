@@ -16,14 +16,23 @@ class App extends React.Component{
       contentHello:"Spróbuj znaleść pasujące elementy. Zrób to jak najszybciej !!!",
  
       contentTiles: Array(12).fill(null),
-      nazwyGrafik: ["jablko.jpg","banan.jpg","żyrafa.jpg","koń.jpg","słoń.jpg","ryba.jpg"], 
+      nazwyGrafik: ['jablko.jpg','banan.jpg','żyrafa.jpg','koń.jpg','słoń.jpg','ryba.jpg'], 
 
-      contentTilesChosen: Array(11).fill(null),
+      contentTilesChosen: Array(12).fill(null),
 
-      isFirstClicked: true,
-      currentChoseElement: null,
-      previousSelectedElement: null,
-      numberOfClick: 0,
+      counterClick:0,
+
+
+      elementFirst:null,
+      elementSecound:null,
+      indexFirst:null,
+      indexSeound:null,
+     
+    
+
+
+      chooseElement: null,
+
 
     }
 
@@ -35,40 +44,116 @@ class App extends React.Component{
 
 handleClick(i) {
 
-    if(this.state.currentChoseElement!=null && this.state.previousSelectedElement!=null)
-    {
+       var PierwszyElement=this.state.elementFirst;
+       var DrugiElement=this.state.elementSecound; 
+       var IndexPier=this.state.indexFirst; 
+       var IndexDrug=this.state.indexSeound;
 
-      if(this.state.currentChoseElement===this.state.previousSelectedElement)
+       const squares = this.state.contentTilesChosen.slice();
+
+      if(PierwszyElement!=null && DrugiElement!=null)
       {
-        console.log("MamPare wiec zostaw odkryte kafelki ");      
+        // debugger;
+        if(PierwszyElement===DrugiElement)
+        {
+          PierwszyElement=null;
+          DrugiElement=null;
+          IndexPier=null;
+          IndexDrug=null;
+        }else
+        {
+          squares[IndexPier]=null;
+          squares[IndexDrug]=null;
+
+          PierwszyElement=null;
+          DrugiElement=null;
+          IndexPier=null;
+          IndexDrug=null;
+        }
       }
-      else
-      {
-        console.log("Nie mam pary wiec zakryj kafelki");
-      }
-
-        this.setState({
-          currentChoseElement: null,
-          previousSelectedElement: null,
-        }); 
 
 
-    }
+          if(this.state.counterClick===0)
+          {
+             
+          squares[i] = this.state.contentTiles[i];
+
+          var actualClickNumber=this.state.counterClick;
+          actualClickNumber+=1;
+          
+        
+         PierwszyElement=this.state.contentTiles[i];
+         IndexPier=i;   
+
+            // debugger;
+
+          }else
+          {
+           
+            squares[i] = this.state.contentTiles[i];
+            var actualClickNumber=0;
+           
+            
+            DrugiElement=this.state.contentTiles[i];
+            IndexDrug=i; 
+           
+
+            // debugger;
+          }
+
+
+
+
+
+
+          this.setState({
+            contentTilesChosen: squares,
+            counterClick:actualClickNumber,
+            elementFirst:PierwszyElement,
+            indexFirst:IndexPier,
+            elementSecound:DrugiElement,
+            indexSeound:IndexDrug,
+                
+          });
+
+         
+
+
+
+    // if(this.state.currentChoseElement!=null && this.state.previousSelectedElement!=null)
+    // {
+
+    //   if(this.state.currentChoseElement===this.state.previousSelectedElement)
+    //   {
+    //     console.log("MamPare wiec zostaw odkryte kafelki ");      
+    //   }
+    //   else
+    //   {
+    //     console.log("Nie mam pary wiec zakryj kafelki");
+    //   }
+
+    //     this.setState({
+    //       currentChoseElement: null,
+    //       previousSelectedElement: null,
+    //     }); 
+
+
+   // }
    
-    const squares = this.state.contentTilesChosen.slice();
-    squares[i] = this.state.contentTiles[i];
-    this.setState({contentTilesChosen: squares});
+    // const squares = this.state.contentTilesChosen.slice();
+    // squares[i] = this.state.contentTiles[i];
+    // this.setState({contentTilesChosen: squares});
    
-    if(this.state.isFirstClicked)
-    {
-      this.setState({previousSelectedElement:this.state.contentTiles[i]});
-      this.setState({isFirstClicked:false});      
+    // if(this.state.isFirstClicked)
+    // {
+    //   this.setState({previousSelectedElement:this.state.contentTiles[i]});
+    //   this.setState({isFirstClicked:false});      
      
-    }
-    else{
-      this.setState({currentChoseElement:this.state.contentTiles[i]});
-      this.setState({isFirstClicked:true}); 
-    }
+    // }
+    // else{
+    //   this.setState({currentChoseElement:this.state.contentTiles[i]});
+    //   this.setState({isFirstClicked:true}); 
+    // }
 
 }
 
@@ -107,8 +192,12 @@ changeGameStan(i)
 
 
   renderOneSquare(i){
+
+   
+
    
     return(
+        //<OneSquare titleGrafic={this.state.contentTilesChosen[i]} ClickBut={()=>{this.changeGameStan(i)}} />
         <OneSquare titleGrafic={this.state.contentTilesChosen[i]} ClickBut={()=>{this.changeGameStan(i)}} />
     );
   }
@@ -116,9 +205,16 @@ changeGameStan(i)
   
 
   render(){
-    debugger;
-    const stan=isCheckMach(this.state.previousSelectedElement,this.state.currentChoseElement,this.state.numberOfClick);
+    //debugger;
+   // const stan=isCheckMach(this.state.previousSelectedElement,this.state.currentChoseElement,this.state.numberOfClick);
     
+    var stanPrzykładowy=0;
+
+   
+
+
+
+
     return(
      
         <div id="game_board">
