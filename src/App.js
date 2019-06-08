@@ -13,142 +13,100 @@ class App extends React.Component{
 
     this.state = {
       contentHello:"Spróbuj znaleść pasujące elementy. Zrób to jak najszybciej !!!",
- 
       contentTiles: Array(12).fill(null), 
-      nazwyGrafik: ['red','blue','yellow','green','black','orange'],
+      colorOfTiles: ['red','blue','yellow','green','black','orange'],
       contentTilesChosen: Array(12).fill(null),
-
       counterClick:0,
-
       elementFirst:null,
-      elementSecound:null,
+      elementSecond:null,
       indexFirst:null,
-      indexSeound:null,
-     
-    
-
-
-      chooseElement: null,
-
-
+      indexSecond:null,
     }
-
     this.randomItems=this.randomItems.bind(this);
-   
-
     this.randomItems();
   }
 
-handleClick(i) {
+  handleClick(i) {
 
-       var PierwszyElement=this.state.elementFirst;
-       var DrugiElement=this.state.elementSecound; 
-       var IndexPier=this.state.indexFirst; 
-       var IndexDrug=this.state.indexSeound;
-
+       var firstChosenElement=this.state.elementFirst;
+       var secondChosenElement=this.state.elementSecond; 
+       var indexFirstChosen=this.state.indexFirst; 
+       var indexSecondChosen=this.state.indexSecond;
+       var actualClickNumber=this.state.counterClick;
        const squares = this.state.contentTilesChosen.slice();
 
-      if(PierwszyElement!=null && DrugiElement!=null)
+      if(firstChosenElement!=null && secondChosenElement!=null)
       {
-       
-        if(PierwszyElement===DrugiElement)
+        if(firstChosenElement===secondChosenElement)
         {
-          PierwszyElement=null;
-          DrugiElement=null;
-          IndexPier=null;
-          IndexDrug=null;
+          firstChosenElement=null;
+          secondChosenElement=null;
+          indexFirstChosen=null;
+          indexSecondChosen=null;
         }else
         {
-          squares[IndexPier]=null;
-          squares[IndexDrug]=null;
-
-          PierwszyElement=null;
-          DrugiElement=null;
-          IndexPier=null;
-          IndexDrug=null;
+          squares[indexFirstChosen]=null;
+          squares[indexSecondChosen]=null;
+          firstChosenElement=null;
+          secondChosenElement=null;
+          indexFirstChosen=null;
+          indexSecondChosen=null;
         }
       }
 
+      if(this.state.counterClick===0)
+      {
+        squares[i] = this.state.contentTiles[i];
+        actualClickNumber+=1;
+        firstChosenElement=this.state.contentTiles[i];
+        indexFirstChosen=i;   
 
-          if(this.state.counterClick===0)
-          {
-             
-          squares[i] = this.state.contentTiles[i];
+      }else
+      {
+        squares[i] = this.state.contentTiles[i];
+        actualClickNumber=0;   
+        secondChosenElement=this.state.contentTiles[i];
+        indexSecondChosen=i; 
+      }
 
-          var actualClickNumber=this.state.counterClick;
-          actualClickNumber+=1;
-          
-        
-         PierwszyElement=this.state.contentTiles[i];
-         IndexPier=i;   
+      this.setState({
+        contentTilesChosen: squares,
+        counterClick:actualClickNumber,
+        elementFirst:firstChosenElement,
+        indexFirst:indexFirstChosen,
+        elementSecond:secondChosenElement,
+        indexSecond:indexSecondChosen,        
+      });
+  }
 
-          }else
-          {
-           
-            squares[i] = this.state.contentTiles[i];
-            actualClickNumber=0;
-           
-            
-            DrugiElement=this.state.contentTiles[i];
-            IndexDrug=i; 
-           
-
-            // debugger;
-          }
-
-
-
-
-
-
-          this.setState({
-            contentTilesChosen: squares,
-            counterClick:actualClickNumber,
-            elementFirst:PierwszyElement,
-            indexFirst:IndexPier,
-            elementSecound:DrugiElement,
-            indexSeound:IndexDrug,
-                
-          });
-}
-
-changeGameStan(i)
-{
-  this.handleClick(i);
-} 
+  changeGameStan(i)
+  {
+    this.handleClick(i);
+  } 
 
   randomItems(){
     var indexRandom;   
-    this.state.nazwyGrafik.forEach(element => {
-            
+    this.state.colorOfTiles.forEach(element => {
             do {
-
-                indexRandom=Math.floor(Math.random() * this.state.contentTiles.length);
+              indexRandom=Math.floor(Math.random() * this.state.contentTiles.length);
                
             } while (this.state.contentTiles[indexRandom]!=null);
-                this.state.contentTiles[indexRandom]=element;
-
+              this.state.contentTiles[indexRandom]=element;
             do {
-               
-                indexRandom=Math.floor(Math.random() * this.state.contentTiles.length);
-
+              indexRandom=Math.floor(Math.random() * this.state.contentTiles.length);
             } while (this.state.contentTiles[indexRandom]!=null);
-                 this.state.contentTiles[indexRandom]=element;               
+              this.state.contentTiles[indexRandom]=element;               
         });  
   }
 
-
   renderOneSquare(i){
-
     return(       
         <OneSquare titleGrafic={this.state.contentTilesChosen[i]} ClickBut={()=>{this.changeGameStan(i)}} />
     );
   }
-
   render(){
    
-    return(
-     
+    return(     
         <div id="game_board">
              <DescribeComponent describe={this.state.contentHello}/>
              <div>
@@ -177,5 +135,4 @@ changeGameStan(i)
     );
   }
 }
-
 export default App;
