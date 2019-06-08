@@ -1,6 +1,7 @@
 import React from 'react';
 import App from '../App.js'
 import '../styles/OneSquare.css';
+// import { url } from 'inspector';
 
 
 class OneSquare extends React.Component {
@@ -10,43 +11,28 @@ class OneSquare extends React.Component {
         super(props);
    
             this.state = {
-                width: 60,
-                height: 60,
-                text: "Kafelek",
+                backgroundI: null,
             }
     }
         
     onChange = () =>{
         this.props.ClickBut();
-       
-      
-        // this.setState({nameGrafic:this.props.titleGrafic);
+        this.changeBacground();        
+    }
+
+    changeBacground(){
+        this.setState({
+            backgroundI:this.props.titleGrafic,
+
+        });
+
     }
 
     render(){
 
-        var modalButton = {        
-            backgroundImage: "url(jablko.jpg)"         
-        }
-
-        
-
-
-
-
-
+        var color = this.props.titleGrafic;
         return(
-
-                           
-        //  <img src={this.props.titleGrafic} width={this.state.width} height={this.state.height} alt="my"/>
-
-
-                <button onClick={this.onChange}>{this.props.titleGrafic}</button>
-
-
-
-             
-         
+                <button className="button" style={{backgroundColor:color}} onClick={this.onChange}></button> 
         );
     }
   
