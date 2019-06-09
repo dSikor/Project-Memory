@@ -1,8 +1,5 @@
 import React from 'react';
-import App from '../App.js'
 import '../styles/OneSquare.css';
-// import { url } from 'inspector';
-
 
 class OneSquare extends React.Component {
   
@@ -11,7 +8,7 @@ class OneSquare extends React.Component {
         super(props);
    
             this.state = {
-                backgroundI: null,
+                backgroundColorButton: null,
             }
     }
         
@@ -22,7 +19,7 @@ class OneSquare extends React.Component {
 
     changeBacground(){
         this.setState({
-            backgroundI:this.props.titleGrafic,
+            backgroundColorButton:this.props.titleGrafic,
 
         });
 

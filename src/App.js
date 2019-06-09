@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
 import DescribeComponent from './components/DescribeComponent';
 import OneSquare from './components/OneSquare';
 
@@ -109,7 +107,7 @@ class App extends React.Component{
     return(     
         <div id="game_board">
              <DescribeComponent describe={this.state.contentHello}/>
-             <div>
+             <div id="game_board_contener">
                 <div>
                     {this.renderOneSquare(0)}
                     {this.renderOneSquare(1)}

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/DescribeComponent.css'
 
 
 class DescribeComponent extends React.Component {
